@@ -1,112 +1,99 @@
-let container = document.createElement("div");
-let nav = document.createElement("nav");
-let cartCounter = document.createElement("div");
-let logo = document.createElement("h1");
+let products = [
+  { name: "hoodie", desc: "this a HBA-hoodie", img: "images/hoodie.png" },
+  { name: "creatien", desc: "this a LVL-creatien", img: "images/creatine.png" },
+  { name: "jacket", desc: "this a HBA-jacket", img: "images/jacket.png" },
+  { name: "pre-workout", desc: "this a LVL-pre-workout", img: "images/preworkout.png" },
+  { name: "pants", desc: "this a HBA-pants", img: "images/pants.png" },
+  { name: "shirt", desc: "this a HBA-shirt", img: "images/shirt.png" }
+];
+
 let count = 0;
+let nav = document.createElement("nav");
+let searchInput = document.createElement("input");
+let cartCounter = document.createElement("div");
+let container = document.createElement("div");
 
 document.body.appendChild(nav);
 document.body.appendChild(container);
 document.body.style.margin = "0";
-document.body.style.fontFamily = "Arial, sans-serif";
+document.body.style.backgroundColor = "#222";
+document.body.style.fontFamily = "Arial";
 
-nav.style.backgroundColor = "#111";
-nav.style.color = "white";
-nav.style.padding = "20px 40px";
 nav.style.display = "flex";
 nav.style.justifyContent = "space-between";
 nav.style.alignItems = "center";
+nav.style.padding = "15px 30px";
+nav.style.backgroundColor = "#111";
 nav.style.position = "sticky";
 nav.style.top = "0";
-nav.style.zIndex = "1000";
+nav.style.zIndex = "100";
 
-logo.innerText = "HBA & LVL STORE";
-logo.style.margin = "0";
-logo.style.fontSize = "20px";
-nav.appendChild(logo);
+searchInput.placeholder = "Search products...";
+searchInput.style.padding = "8px 15px";
+searchInput.style.borderRadius = "20px";
+searchInput.style.border = "none";
+searchInput.style.width = "250px";
+nav.appendChild(searchInput);
 
-cartCounter.innerText = "Cart Items: 0";
-cartCounter.style.fontSize = "18px";
+cartCounter.innerText = "Cart: 0";
+cartCounter.style.color = "white";
 cartCounter.style.fontWeight = "bold";
-cartCounter.style.backgroundColor = "#333";
-cartCounter.style.padding = "5px 15px";
-cartCounter.style.borderRadius = "20px";
 nav.appendChild(cartCounter);
 
 container.style.display = "flex";
 container.style.flexWrap = "wrap";
 container.style.justifyContent = "center";
-container.style.alignItems = "stretch";
 container.style.gap = "20px";
-container.style.padding = "40px 20px";
-container.style.backgroundColor = "#222";
-container.style.minHeight = "100vh";
+container.style.padding = "30px";
 
-function createCard(name, description, imagePath) {
-  let card = document.createElement("div");
-  let title = document.createElement("h2");
-  let text = document.createElement("p");
-  let img = document.createElement("img");
-  let btn = document.createElement("button");
+function displayProducts(filterText = "") {
+  container.innerHTML = "";
+  let filtered = products.filter(p => p.name.toLowerCase().includes(filterText.toLowerCase()));
 
-  title.innerText = name;
-  text.innerText = description;
-  img.src = imagePath;
-  btn.innerText = "Add to Cart";
+  filtered.forEach(p => {
+    let card = document.createElement("div");
+    card.style.width = "200px";
+    card.style.backgroundColor = "#444";
+    card.style.padding = "15px";
+    card.style.borderRadius = "10px";
+    card.style.color = "white";
+    card.style.textAlign = "center";
+    card.style.display = "flex";
+    card.style.flexDirection = "column";
+    card.style.justifyContent = "space-between";
 
-  card.style.width = "220px";
-  card.style.backgroundColor = "#444";
-  card.style.color = "white";
-  card.style.padding = "20px";
-  card.style.display = "flex";
-  card.style.flexDirection = "column";
-  card.style.justifyContent = "space-between";
-  card.style.borderRadius = "12px";
-  card.style.textAlign = "center";
-  card.style.transition = "transform 0.3s";
-  card.onmouseover = () => (card.style.transform = "scale(1.02)");
-  card.onmouseout = () => (card.style.transform = "scale(1)");
+    let title = document.createElement("h3");
+    title.innerText = p.name;
+    
+    let img = document.createElement("img");
+    img.src = p.img;
+    img.style.width = "100%";
+    img.style.height = "150px";
+    img.style.objectFit = "contain";
 
-  img.style.width = "100%";
-  img.style.height = "180px";
-  img.style.objectFit = "contain";
-  img.style.marginBottom = "10px";
+    let btn = document.createElement("button");
+    btn.innerText = "Add to Cart";
+    btn.style.marginTop = "10px";
+    btn.style.cursor = "pointer";
+    btn.style.padding = "8px";
+    btn.style.fontWeight = "bold";
 
-  btn.style.marginTop = "15px";
-  btn.style.padding = "12px";
-  btn.style.cursor = "pointer";
-  btn.style.backgroundColor = "#fff";
-  btn.style.color = "#000";
-  btn.style.border = "none";
-  btn.style.fontWeight = "bold";
-  btn.style.borderRadius = "5px";
-  btn.style.transition = "0.3s";
+    btn.onclick = () => {
+      count++;
+      cartCounter.innerText = "Cart: " + count;
+      btn.innerText = "Added ✓";
+      btn.style.backgroundColor = "#4CAF50";
+      setTimeout(() => {
+        btn.innerText = "Add to Cart";
+        btn.style.backgroundColor = "";
+      }, 1000);
+    };
 
-  btn.onclick = function () {
-    count++;
-    cartCounter.innerText = "Cart Items: " + count;
-    btn.innerText = "Added ✓";
-    btn.style.backgroundColor = "#4CAF50";
-    btn.style.color = "white";
-
-    alert(name + " has been added to your cart! 🛒");
-
-    setTimeout(() => {
-      btn.innerText = "Add to Cart";
-      btn.style.backgroundColor = "#fff";
-      btn.style.color = "#000";
-    }, 1500);
-  };
-
-  card.appendChild(title);
-  card.appendChild(text);
-  card.appendChild(img);
-  card.appendChild(btn);
-  container.appendChild(card);
+    card.append(title, img, btn);
+    container.appendChild(card);
+  });
 }
 
-createCard("hoodie", "this a HBA-hoodie", "./images/hoodie.png");
-createCard("creatien", "this a LVL-creatien", "images/creatine.png");
-createCard("jacket", "this a HBA-jacket", "images/jacket.png");
-createCard("pre-workout", "this a LVL-pre-workout", "images/preworkout.png");
-createCard("pants", "this a HBA-pants", "images/pants.png");
-createCard("shirt", "this a HBA-shirt", "images/shirt.png");
+searchInput.oninput = (e) => displayProducts(e.target.value);
+
+displayProducts();
