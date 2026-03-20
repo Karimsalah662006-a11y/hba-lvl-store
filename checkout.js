@@ -1,11 +1,11 @@
 // نفس بيانات المنتجات عشان نعرف نقارن الـ ID
 let products = [
   { id: 1, name: "hoodie", desc: "this a HBA-hoodie", img: "images/hoodie.png" },
-  { id: 2, name: "creatien", desc: "this a LVL-creatien", img: "images/lvl_creatine.jpeg" },
-  { id: 3, name: "jacket", desc: "this a HBA-jacket", img: "images/jackets.jpeg" },
-  { id: 4, name: "pre-workout", desc: "this a LVL-pre-workout", img: "images/pre_workout.jpeg" },
-  { id: 5, name: "pants", desc: "this a HBA-pants", img: "images/pants.jpeg" },
-  { id: 6, name: "shirt", desc: "this a HBA-shirt", img: "images/t-shirt.jpeg" }
+  { id: 2, name: "creatien", desc: "this a LVL-creatien", img: "images/creatine.png" },
+  { id: 3, name: "jacket", desc: "this a HBA-jacket", img: "images/jacket.png" },
+  { id: 4, name: "pre-workout", desc: "this a LVL-pre-workout", img: "images/preworkout.png" },
+  { id: 5, name: "pants", desc: "this a HBA-pants", img: "images/pants.png" },
+  { id: 6, name: "shirt", desc: "this a HBA-shirt", img: "images/shirt.png" }
 ];
 
 let checkoutContainer = document.createElement("div");
